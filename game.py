@@ -1,24 +1,22 @@
 import re
-from words import get_category_lst
-GUESSES_LIMIT = 7
+from words import get_category_lst, get_random_word
+from utils.time_utils import day_or_night
 
-
-def pick_category(words_dict):
+def pick_category():
     """
     Use words_dict to show the category
     and asks the user to choose one
     """
-    c_lst = get_category_lst(words_dict)
+    c_lst = get_category_lst()
     for i, c in enumerate(c_lst):
         print(f"{i+1}. {c}")
 
     while True:
-        user_choice = input(f"Enter choice number (between 1 - {len(c_lst)})")
+        user_choice = input(f"Enter choice number (between 1 - {len(c_lst)}): ")
         valid_choice = validation_input(user_choice,'number', len(c_lst))
         if valid_choice:
-            break
-    return c_lst[valid_choice]
-
+            return c_lst[valid_choice-1]
+        
 def only_en_letter(user_input):
     if bool(re.fullmatch(r"[A-Za-z]+", user_input)):
         return user_input
@@ -34,7 +32,7 @@ def validation_input(user_input, input_type, range=None):
     """
     if input_type == 'number':
         if user_input.isdigit():
-            if 0 < int(user_input) < range:
+            if 0 < int(user_input) <= range:
                 return int(user_input)
             else:
                 print(f"Please enter a number between 0 to {range}")
@@ -64,3 +62,20 @@ def win_lose_or_continue(word, shown_word, attemps):
     else:
         return 'continue'
     
+def get_the_word(menu, guess_limit):
+    """
+    show the menu and return the hidden word
+    by the user choosing category (or random)
+    """
+    print(menu)
+    while True:
+        choice = input("Choose one: ")
+        if validation_input(choice, 'number', guess_limit):
+            if choice == '1':
+                return get_random_word()
+            elif choice == '2':
+                return get_random_word(pick_category())
+            else:
+                print(f'Have a good {print(day_or_night)}...')
+                exit()
+            
