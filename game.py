@@ -81,7 +81,7 @@ def user_letter_guess():
         guess = input("Enter a letter: ")
         valid = validation_input(guess, 'letter')
         if valid:
-            return valid
+            return valid.lower()
 
 def user_proccess_display(hidden_word, attempts, wrong_l):
    print(f"""
