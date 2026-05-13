@@ -40,12 +40,12 @@ def pick_category():
             return c_lst[valid_choice-1]
         
 def only_en_letter(user_input):
-    if bool(re.fullmatch(r"[A-Za-z]+", user_input)):
+    if bool(re.fullmatch(r"[A-Za-z]+", user_input)) and len(user_input) == 1:
         return user_input
     else:
         print(f"Please enter a valid English letter!")
         return
-
+    
 def validation_input(user_input, input_type, range=None):
     """
     Return the input of user choice
@@ -89,7 +89,7 @@ def get_the_word():
 def user_letter_guess():
     while True:
         guess = input("Enter a letter: ")
-        valid = only_en_letter(guess)
+        valid = validation_input(guess, 'letter')
         if valid:
             return valid
 
