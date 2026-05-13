@@ -1,6 +1,6 @@
 # Guess The Word
 
-A terminal-based hangman game written in Python.
+A terminal-based guess the word game written in Python.
 
 ## Requirements
 
