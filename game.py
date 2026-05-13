@@ -62,7 +62,7 @@ def validation_input(user_input, input_type, range=None):
         else:
             print("Please enter a valid number!")
             return
-    elif type == 'letter':
+    elif input_type == 'letter':
         return only_en_letter(user_input)
 
 def menu_printing():
@@ -77,14 +77,14 @@ def get_the_word():
     menu_printing()
     while True:
         choice = input("Choose one: ")
-        if validation_input(choice, 'number', MENU_OPTIONS_NUMBER):
-            if choice == '1':
-                return get_random_word()
-            elif choice == '2':
-                return get_random_word(pick_category())
-            else:
-                print(f'Have a good {day_or_night()}...')
-                exit()
+        valid_choice = validation_input(choice, 'number', MENU_OPTIONS_NUMBER)
+        if valid_choice == 1:
+            return get_random_word()
+        elif valid_choice == 2:
+            return get_random_word(pick_category())
+        elif valid_choice == 3:
+            print(f'Have a good {day_or_night()}...')
+            exit()
 
 def user_letter_guess():
     while True:
@@ -125,14 +125,13 @@ def guess_turn(word, letter, correct_letters, wrong_letters, hidden_word_lst):
     
     if already_guessed(letter, correct_letters, wrong_letters):
         print("Youv'e already try this letter.")
-        return
+        return False
     if letter_exist(word, letter):
         correct_guess(word, letter, correct_letters, hidden_word_lst)
-        return True
+        return False
     else:
         wrong_guess(letter, wrong_letters)
         return True
-
 
 def win_and_lose_or_continue(word, shown_word, attempts, limit):
 
@@ -141,7 +140,7 @@ def win_and_lose_or_continue(word, shown_word, attempts, limit):
         choice = game_over_options()
         return 'win', choice
     
-    if attempts >= limit:  
+    if attempts > limit:  
         print_game_over(word, 'GAME OVER ✖ !')
         choice = game_over_options()
         return 'lose', choice
