@@ -1,4 +1,4 @@
-# Hangman
+# Guess The Word
 
 A terminal-based hangman game written in Python.
 
