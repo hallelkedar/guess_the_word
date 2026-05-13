@@ -20,7 +20,7 @@ MENU = """
             3. Exit
     """
 MENU_OPTIONS_NUMBER = 3
-GUESSES_LIMIT = 7
+GUESSES_LIMIT = 15
 AGAIN = 'again'
 EXIT = 'exit'
 
